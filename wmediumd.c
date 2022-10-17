@@ -449,6 +449,7 @@ mystruct_nlmsg serialize_message_tosend(u8 *hwaddr, unsigned int data_len, unsig
 {
 	mystruct_nlmsg message;
 	
+	message.machine_id = 2;
 	memcpy(message.hwaddr_t, hwaddr, ETH_ALEN);
 	message.data_len_t = data_len;
 	message.flags_t = flags;
