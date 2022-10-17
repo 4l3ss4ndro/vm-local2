@@ -381,7 +381,7 @@ void *rx_cmd_frame(void *unused)
 	socklen_t addr_size_udp;
 	int n_udp;
 	
-	int machine_id = 1;
+	int machine_id = 2;
 
 	sockfd_udp = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sockfd_udp < 0){
@@ -458,11 +458,6 @@ mystruct_nlmsg serialize_message_tosend(u8 *hwaddr, unsigned int data_len, unsig
 	message.freq_t = freq;
 	memcpy(message.src_t, src, ETH_ALEN);
 	memcpy(message.data_t, data, data_len);
-	
-	printf("------------ Data_len: %d ------------\nFrame content: ", data_len);
-	for(int jjj = 0; jjj < (int)data_len; jjj++)
-		printf("0x%x ", (data)[jjj]&0xff);
-	printf("\n");
 	
 	return message;
 }
@@ -891,7 +886,7 @@ int main(int argc, char *argv[])
 	socket_to_global = sock_tcp;
 
 	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_port = htons(8090);
+	serv_addr.sin_port = htons(8070);
 
 	// Convert IPv4 and IPv6 addresses from text to binary
 	// form
