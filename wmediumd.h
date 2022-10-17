@@ -194,6 +194,7 @@ typedef struct{
 	} mystruct_frame;
 
 typedef struct{
+		int machine_id;
 		u8 hwaddr_t[ETH_ALEN];
 		unsigned int data_len_t;
 		unsigned int flags_t;
