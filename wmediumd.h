@@ -176,6 +176,7 @@ struct nl_msg {
 };
 
 typedef struct{
+		int machine_id_tobroadcast;
 		size_t data_len_tobroadcast;
 		int rate_idx_tobroadcast;
 		int signal_tobroadcast;
