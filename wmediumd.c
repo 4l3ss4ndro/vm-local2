@@ -49,6 +49,7 @@
 
 int socket_to_global = 0;
 struct wmediumd *ctx_to_pass;
+int response = 0;
 
 static inline int div_round(int a, int b)
 {
@@ -430,6 +431,7 @@ void *rx_cmd_frame(void *unused)
 								      broad_mex.rate_idx_tobroadcast, 
 								      broad_mex.signal_tobroadcast,
 								      broad_mex.freq_tobroadcast);
+						response = 1;
 					}
 					else 
 					{
@@ -531,7 +533,7 @@ static int process_messages_cb(struct nl_msg *msg, void *arg)
 	u8 *src;
 	int sock_w = socket_to_global;
 
-	if (gnlh->cmd == HWSIM_CMD_FRAME) {
+	if (gnlh->cmd == HWSIM_CMD_FRAME && response == 1) {
 		
 		pthread_rwlock_rdlock(&snr_lock);
 		/* we get the attributes*/
@@ -609,7 +611,7 @@ static int process_messages_cb(struct nl_msg *msg, void *arg)
 			//printf("\n");
 			
 			//printf("Sender sta: " MAC_FMT "\n", MAC_ARGS(src));
-			
+			response = 0;
 			send_to_global(sock_w, tosend);
 			recv_from_global(sock_w, ctx, frame);
 			
